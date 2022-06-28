@@ -13,7 +13,12 @@ const GlobalStyles = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     font-family: "Permanent Marker", cursive;
   };
-  
+
+  #__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
   section {
     margin: auto;
