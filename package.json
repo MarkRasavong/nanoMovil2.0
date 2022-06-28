@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --watch",
+    "test_ci": "jest --ci",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "next": "12.1.6",
