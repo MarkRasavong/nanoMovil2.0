@@ -1,6 +1,8 @@
 export interface NanoTheme {
-	color?: {
-		nanoColor?: string
+	colors: {
+		nanoBlue: string
+		nanoOrange: string
+		nanoWhite: string
 	}
 	fonts: string[]
 	fontSize: {
@@ -16,5 +18,10 @@ export const theme: NanoTheme = {
 		small: '1em',
 		medium: '2em',
 		large: '3em',
+	},
+	colors: {
+		nanoBlue: '#0573bd',
+		nanoOrange: '#ff6d01',
+		nanoWhite: '#fbf6f3',
 	},
 }
