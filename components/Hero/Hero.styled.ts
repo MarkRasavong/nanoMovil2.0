@@ -14,7 +14,7 @@ export const HeroSection = styled.section`
 
 	.vidBkgContainr video {
 		width: 100%;
-		height: 54em;
+		height: 57em;
 		object-fit: cover;
 		min-height: 550px;
 	}
@@ -54,11 +54,25 @@ export const HeroLogoDiv = styled.div`
 
 export const Overlay = styled.div`
 	position: absolute;
-	height: 92vh;
+	height: 100vh;
 	width: 100%;
 	z-index: -1;
 	top: 0em;
 	left: 0em;
 	background: #000000;
 	opacity: 0.3;
+`
+export const HeroTextContainer = styled.div`
+	position: absolute;
+	top: 12em;
+
+	h2 {
+		font-size: 3em;
+		color: ${({ theme }) => theme.colors.nanoBlue};
+	}
+
+	h6 {
+		font-size: 1em;
+		color: ${({ theme }) => theme.colors.nanoBlue};
+	}
 `

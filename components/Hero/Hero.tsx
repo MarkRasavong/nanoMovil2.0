@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { GlassBox, HeroLogoDiv, HeroSection, Overlay } from './Hero.styled';
+import { GlassBox, HeroLogoDiv, HeroSection, HeroTextContainer, Overlay } from './Hero.styled';
 
 const Hero = () => {
   return (
@@ -9,6 +9,10 @@ const Hero = () => {
         <HeroLogoDiv>
           <Image src='/Hero.png' alt='NanoMóvil Logo Page' layout='fill' className='heroImg'/>
         </HeroLogoDiv>
+        <HeroTextContainer>
+          <h2>Benvingut!</h2>
+          <h6>Nuestro Móvil de La Terreta</h6>
+        </HeroTextContainer>
       </GlassBox>
 
       <Overlay />

@@ -3,14 +3,18 @@ import type { AppProps } from 'next/app'
 import { Fragment } from 'react'
 import Layout from '../components/Layout'
 import GlobalStyles from '../styles/globals'
+import { ThemeProvider } from 'styled-components'
+import { theme } from '../styles/theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Fragment>
-      <Layout>
-        <GlobalStyles />
-        <Component {...pageProps} />
-      </Layout>
+      <GlobalStyles />
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
     </Fragment>
   
   )
