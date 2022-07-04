@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const FooterDiv = styled.footer`
-	position: absolute;
-	bottom: 0;
+	position: sticky;
+	top: 100%;
 	display: flex;
 	justify-content: center;
 	height: 5em;

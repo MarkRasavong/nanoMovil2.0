@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
 }
 
 body {
+  min-height: 100vh;
     /* ff 3.6+ */
     background: -moz-linear-gradient(
     179deg,
