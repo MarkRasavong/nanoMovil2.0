@@ -37,12 +37,12 @@ const Navbar = () => {
   return (
     <NavbarContainer
     style={{
-      background: `179deg,
-    rgba(31, 127, 149, 1) ${backgroundTransparacy},
-    rgba(5, 115, 189, 1) ${backgroundTransparacy}`,
+      background: `linear-gradient(
+        179deg,
+        rgba(31, 127, 149, ${backgroundTransparacy}) 29%,
+        rgba(5, 115, 189, ${backgroundTransparacy}) 100%)`,
       padding: `${padding}px 0px`,
-      boxShadow: `rgba(0, 0, 0, ${boxShadow}) 0px 2px 4px -1px,
-		rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px`
+      boxShadow: `rgb(0 0 0 / ${boxShadow}) 0px 0px 20px 6px`
     }}
     >
       <NavbarLogo>
