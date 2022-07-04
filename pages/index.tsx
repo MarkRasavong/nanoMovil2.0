@@ -1,10 +1,13 @@
+import React from 'react';
 import type { NextPage } from 'next';
+import Hero from '../components/Hero/Hero';
 
 const dummyMap = [1,2,3,4,5,6,7]
 
 const Home: NextPage = () => {
   return (
-    <div>
+    <React.Fragment>
+      <Hero />
        {/* Dummy data */}
        {
        dummyMap.map((d) => (
@@ -32,7 +35,7 @@ const Home: NextPage = () => {
         </section>
       </div> 
       ))}
-    </div>
+    </React.Fragment>
   )
 }
 
