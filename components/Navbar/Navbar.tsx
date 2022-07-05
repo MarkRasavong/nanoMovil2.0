@@ -1,8 +1,12 @@
 import Link from 'next/link';
 import React, {useEffect, useState } from 'react';
-import { MobileMenuButton, NavbarContainer, NavbarLogo } from './Navbar.styled';
+import { MobileMenuButton, NavbarContainer, NavBarLinks, NavbarLogo } from './Navbar.styled';
 import{ MdMenu, MdOutlineClose } from 'react-icons/md';
 import Image from 'next/image';
+
+const pages = [
+  { name: 'Productos', link: '/productos'}
+]
 
 const Navbar = () => {
   const [ displayMobileMenu, setDisplayMobileMenu ] = useState(false);
@@ -52,7 +56,19 @@ const Navbar = () => {
         <Image src={"/navBarLogo.png"} alt="logo" width={182} height={94} />
       </Link>
       </NavbarLogo>
-      
+
+      <NavBarLinks style={{ left: displayMobileMenu ? '0%' : '-100%'}}>
+        {
+          pages.map(({name, link}) => (
+            <li key={`navLink_${name}`} onClick={() => setDisplayMobileMenu(false)} >
+              <Link href={link} passHref>
+                <a>{name}</a>
+              </Link>
+            </li>
+          ))
+        }
+      </NavBarLinks>
+
       <MobileMenuButton onClick={handleMobileClick}>
           {displayMobileMenu ? 
             <MdOutlineClose color={'orange'} size={'3em'}/>

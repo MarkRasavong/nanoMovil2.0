@@ -19,6 +19,7 @@ const Hero = () => {
       <div className="vidBkgContainr">
         <video src='/production ID_3851611.mp4' loop={true} autoPlay={true} muted={true} playsInline/>
       </div>
+      
     </HeroSection>
   )
 }
