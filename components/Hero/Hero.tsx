@@ -6,13 +6,13 @@ const Hero = () => {
   return (
     <HeroSection>
       <GlassBox>
-        <HeroLogoDiv>
-          <Image src='/Hero.png' alt='NanoMóvil Logo Page' layout='fill' className='heroImg'/>
-        </HeroLogoDiv>
-        <HeroTextContainer>
+      <HeroTextContainer>
           <h2>Benvingut!</h2>
           <h6>Nuestro Móvil de La Terreta</h6>
         </HeroTextContainer>
+        <HeroLogoDiv>
+          <Image src='/Hero.png' alt='NanoMóvil Logo Page' layout='fill' className='heroImg'/>
+        </HeroLogoDiv>
       </GlassBox>
 
       <Overlay />

@@ -2,6 +2,8 @@ import Link from 'next/link';
 import React, {useEffect, useState } from 'react';
 import { MobileMenuButton, NavbarContainer, NavbarLogo } from './Navbar.styled';
 import{ MdMenu, MdOutlineClose } from 'react-icons/md';
+import Image from 'next/image';
+
 const Navbar = () => {
   const [ displayMobileMenu, setDisplayMobileMenu ] = useState(false);
   const [clientWindowHeight, setClientWindowHeight] = useState<number>(0);
@@ -46,7 +48,9 @@ const Navbar = () => {
     }}
     >
       <NavbarLogo>
-      <Link href={"/"}>Nano Móvil</Link>
+      <Link href={"/"}>
+        <Image src={"/navBarLogo.png"} alt="logo" width={182} height={94} />
+      </Link>
       </NavbarLogo>
       
       <MobileMenuButton onClick={handleMobileClick}>
