@@ -38,12 +38,34 @@ export const GlassBox = styled.div`
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
 
+	.btnsWrpr {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		margin-bottom: 3.5em;
+	}
+
+	button {
+		width: 100%;
+	}
+
 	@media (min-width: 901px) {
 		width: 50%;
+
+		button {
+			width: 35%;
+		}
+
+		.btnsWrpr {
+			justify-content: center;
+			margin-bottom: 2.5em;
+		}
 	}
 `
 
 export const HeroLogoDiv = styled.div`
+	z-index: -1;
 	width: 100%;
 	height: 20em;
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { GlassBox, HeroLogoDiv, HeroSection, HeroTextContainer, Overlay } from './Hero.styled';
+import { Button } from '../Button/Button.styled';
+import Link from 'next/link';
 
 const Hero = () => {
   return (
@@ -13,13 +15,19 @@ const Hero = () => {
         <HeroLogoDiv>
           <Image src='/Hero.png' alt='NanoMóvil Logo Page' layout='fill' className='heroImg'/>
         </HeroLogoDiv>
+        <div className='btnsWrpr'>
+          <Link href='/productos' passHref>
+            <Button>
+              Ver Nuestro Productos
+            </Button>
+          </Link>
+        </div>
       </GlassBox>
 
       <Overlay />
       <div className="vidBkgContainr">
         <video src='/production ID_3851611.mp4' loop={true} autoPlay={true} muted={true} playsInline/>
       </div>
-      
     </HeroSection>
   )
 }
