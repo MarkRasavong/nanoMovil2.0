@@ -68,7 +68,6 @@ body {
 
   section {
     margin: auto;
-    padding: 4em;
   }
 `
 
