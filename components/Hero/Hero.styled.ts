@@ -4,6 +4,7 @@ export const HeroSection = styled.section`
 	position: relative;
 	display: flex;
 	justify-content: center;
+	height: 100vh;
 
 	.vidBkgContainr {
 		position: absolute;

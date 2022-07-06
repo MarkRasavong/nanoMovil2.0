@@ -6,7 +6,8 @@ export const SectionTopMoviles = styled.section`
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	margin-top: 26em;
+	height: 100%;
+	margin-top: 5em;
 
 	h1 {
 		margin-bottom: 1em;
@@ -21,7 +22,7 @@ export const SectionTopMoviles = styled.section`
 	}
 
 	@media (min-width: 768px) and (max-width: 1024px) {
-		margin-top: 30em;
+		margin-top: 2em;
 		margin-bottom: 2em;
 
 		h1 {
@@ -39,7 +40,6 @@ export const SectionTopMoviles = styled.section`
 	}
 
 	@media (min-width: 1281px) {
-		margin-top: 54em;
-		margin-bottom: 2em;
+		margin-bottom: 6em;
 	}
 `

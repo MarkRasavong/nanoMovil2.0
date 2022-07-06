@@ -19,7 +19,7 @@ export const Button = styled.button`
 	border-radius: 0.5rem;
 
 	:hover {
-		background-color: ${({ theme }) => theme.colors.nanoWhite};
+		background-color: ${({ theme }) => theme.colors.nanoOrangeHover};
 	}
 
 	:nth-child(n + 1) {

@@ -1,14 +1,23 @@
 import Link from 'next/link';
 import React, {useEffect, useState } from 'react';
-import { MobileMenuButton, NavbarContainer, NavBarLinks, NavbarLogo } from './Navbar.styled';
+import { IconLinksContainer, MobileMenuButton, NavbarContainer, NavBarLinks, NavbarLogo } from './Navbar.styled';
 import{ MdMenu, MdOutlineClose } from 'react-icons/md';
+import { RiShoppingCart2Fill, RiUserFill } from 'react-icons/ri';
 import Image from 'next/image';
+import { useTheme } from 'styled-components';
+import { NanoTheme, theme } from '../../styles/theme';
 
 const pages = [
   { name: 'Productos', link: '/productos'}
-]
+];
+
+const iconsLinks = [
+  {name: 'cart', link:'/cesta', icn: <RiShoppingCart2Fill size={'1.6em'} color={theme.colors.nanoOrange}/>},
+  {name: 'account', link: '/cuenta', icn: <RiUserFill size={'1.6em'} color={theme.colors.nanoOrange}/>}
+];
 
 const Navbar = () => {
+  const theme = useTheme() as NanoTheme;
   const [ displayMobileMenu, setDisplayMobileMenu ] = useState(false);
   const [clientWindowHeight, setClientWindowHeight] = useState<number>(0);
   const [backgroundTransparacy, setBackgroundTransparacy] = useState(0);
@@ -69,11 +78,23 @@ const Navbar = () => {
         }
       </NavBarLinks>
 
+      <IconLinksContainer>
+        {
+          iconsLinks.map(({name, link, icn}) => (
+            <button key={`NavIcn_${name}`}>
+            <Link href={link} passHref>
+              {icn}
+            </Link>
+          </button>
+          ))
+        }
+      </IconLinksContainer>
+
       <MobileMenuButton onClick={handleMobileClick}>
           {displayMobileMenu ? 
-            <MdOutlineClose color={'orange'} size={'3em'}/>
+            <MdOutlineClose color={theme.colors.nanoOrange} size={'3em'}/>
           :
-            <MdMenu color={'orange'} size={'3em'}/>}
+            <MdMenu color={theme.colors.nanoOrange} size={'3em'}/>}
       </MobileMenuButton>
     </NavbarContainer>
   )

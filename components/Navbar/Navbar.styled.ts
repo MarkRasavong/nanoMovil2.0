@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const NavbarContainer = styled.nav`
 	display: flex;
+	justify-content: space-between;
 	position: fixed;
 	z-index: 7;
 	height: 5em;
@@ -45,11 +46,13 @@ export const NavbarContainer = styled.nav`
 
 export const NavBarLinks = styled.ul`
 	display: flex;
+	flex-grow: 1;
 	width: 100%;
 	margin: auto;
 	align-items: center;
 
 	a {
+		color: ${({ theme }) => theme.colors.nanoOrange};
 		cursor: pointer;
 		display: inline-block;
 		font-size: 2.2rem;
@@ -57,7 +60,7 @@ export const NavBarLinks = styled.ul`
 
 	@media (min-width: 991px) {
 		width: auto;
-		justify-content: space-evenly;
+		justify-content: flex-start;
 
 		a {
 			font-size: 1.2rem;
@@ -67,7 +70,6 @@ export const NavBarLinks = styled.ul`
 
 export const NavbarLogo = styled.label`
 	display: flex;
-	flex-grow: 1;
 	margin-top: -1.5em;
 	width: 182px;
 	height: 94px;
@@ -88,5 +90,30 @@ export const MobileMenuButton = styled.button`
 	//mobile && tablets
 	@media (min-width: 990px) {
 		display: none;
+	}
+`
+
+export const IconLinksContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	button {
+		border: none;
+		background-color: inherit;
+		border-radius: 100%;
+		padding: 0.8em;
+		cursor: pointer;
+		transition-duration: 0.13s;
+		margin-right: 1em;
+	}
+
+	//mobile
+	@media (max-width: 990px) {
+		display: none;
+	}
+
+	@media (min-width: 991px) {
+		margin-right: auto;
 	}
 `
