@@ -6,14 +6,16 @@ import { SectionTopMoviles } from '../components/Sections/Sections.styled';
 import Image from 'next/image';
 import demoImg from '../demo/PCkKKlEFrzPbi2hS.jpeg'
 import { Button } from '../components/Button/Button.styled';
-import { useDispatch } from 'react-redux';
 import { fetchProducts } from '../features/products';
-import { AppDispatch } from '../store/store';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 const dummyMap = [1,2,3,4,5,6,7]
 
 const Home: NextPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
+  const products = useAppSelector((state) => state.products);
+
+  console.log(products)
 
   useEffect(() => {
     dispatch(fetchProducts())

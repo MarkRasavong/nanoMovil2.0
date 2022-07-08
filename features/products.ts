@@ -1,9 +1,9 @@
-import { ProductCollection } from '@chec/commerce.js/features/products'
+import { Product } from '@chec/commerce.js/types/product'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { commerce } from '../lib/commerce'
 
 interface ProductSliceInitState {
-	products: ProductCollection[]
+	products: Product[]
 	isLoading: boolean
 }
 
@@ -14,8 +14,8 @@ const initialState: ProductSliceInitState = {
 export const fetchProducts = createAsyncThunk(
 	'products/fetchProducts',
 	async () => {
-		const data = await commerce.products.list()
-		return data
+		const { data: products } = await commerce.products.list()
+		return products
 	}
 )
 
@@ -24,13 +24,9 @@ const productsSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder
-			.addCase(fetchProducts.pending, (state) => {
-				state.isLoading = true
-			})
-			.addCase(fetchProducts.fulfilled, (state, action) => {
-				state.products.push(action.payload)
-			})
+		builder.addCase(fetchProducts.fulfilled, (state, action) => {
+			state.products = action.payload
+		})
 	},
 })
 
