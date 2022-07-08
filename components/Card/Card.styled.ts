@@ -80,7 +80,7 @@ export const Card = styled.div`
 	}
 `
 export const CardImgContainer = styled.div`
-	border-radius: 10px;
+	border-radius: 100px;
 `
 export const CardContent = styled.div`
 	display: flex;

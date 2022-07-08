@@ -5,6 +5,8 @@ import Layout from '../components/Layout'
 import GlobalStyles from '../styles/globals'
 import { ThemeProvider } from 'styled-components'
 import { theme } from '../styles/theme'
+import { Provider } from 'react-redux'
+import store from '../store/store'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <Layout>
-          <Component {...pageProps} />
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
         </Layout>
       </ThemeProvider>
     </Fragment>
