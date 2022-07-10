@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const CardContainerGrid = styled.div`
 	display: grid;
 	grid-template-columns: repeat(4, 275px);
-	grid-template-rows: repeat(2, 450px);
+	grid-template-rows: repeat(2, auto);
 	grid-column-gap: 2em;
 	grid-row-gap: 6em;
 
@@ -12,10 +12,6 @@ export const CardContainerGrid = styled.div`
 		display: flex;
 		flex-direction: column;
 		grid-row-gap: 1em;
-
-		> div {
-			margin-bottom: 1em;
-		}
 	}
 
 	/* 
@@ -38,16 +34,18 @@ export const CardContainerGrid = styled.div`
 		height: 100%;
 		display: grid;
 		grid-template-columns: repeat(2, 350px);
-		grid-template-rows: repeat(1, 580px);
+		grid-template-rows: repeat(1, auto);
 		grid-column-gap: 1.5em;
 		grid-row-gap: 1.5em;
 	}
 `
 
-export const Card = styled.div`
+export const CardItem = styled.div`
+	display: flex;
+	flex-direction: column;
 	cursor: pointer;
 	width: 275px;
-	height: 520px;
+	height: auto;
 
 	background: rgba(255, 255, 255, 0.4);
 	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -60,10 +58,22 @@ export const Card = styled.div`
 		background: rgba(255, 255, 255, 0.9);
 	}
 
+	.cardButtonDiv {
+		display: flex;
+		justify-content: flex-end;
+		width: 100%;
+		padding: 0.5em;
+	}
+
+	button {
+		text-transform: uppercase;
+		width: 50%;
+		padding: 0.5em;
+	}
+
 	@media (min-width: 320px) and (max-width: 480px) {
 		width: 285px;
-		height: 540px;
-		margin: auto;
+		height: auto;
 	}
 
 	@media (min-width: 481px) and (max-width: 767px) {
@@ -76,7 +86,7 @@ export const Card = styled.div`
 
 	@media (min-width: 768px) and (max-width: 1024px) {
 		width: 350px;
-		height: 580px;
+		height: auto;
 	}
 `
 export const CardImgContainer = styled.div`
@@ -86,10 +96,11 @@ export const CardContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 1em;
+	flex-grow: 1;
+`
 
-	button {
-		align-self: flex-end;
-		width: 50%;
-		padding: 0.5em;
-	}
+export const CardTitle = styled.span`
+	display: inline-flex;
+	justify-content: space-between;
+	margin-bottom: 0.8em;
 `

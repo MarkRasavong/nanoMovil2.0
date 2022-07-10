@@ -71,7 +71,7 @@ const Navbar = () => {
           pages.map(({name, link}) => (
             <li key={`navLink_${name}`} onClick={() => setDisplayMobileMenu(false)} >
               <Link href={link} passHref>
-                <a>{name}</a>
+                <a style={{fontFamily: theme.fonts[0]}}>{name}</a>
               </Link>
             </li>
           ))

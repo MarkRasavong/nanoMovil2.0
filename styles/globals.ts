@@ -11,7 +11,6 @@ const GlobalStyles = createGlobalStyle`
     list-style: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: "Permanent Marker", cursive;
   };
 
   #__next {
@@ -64,6 +63,10 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Permanent Marker", cursive;
 }
 
   section {

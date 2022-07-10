@@ -1,21 +1,16 @@
 import React, { useEffect } from 'react';
 import type { NextPage } from 'next';
 import Hero from '../components/Hero/Hero';
-import { Card, CardContainerGrid, CardContent, CardImgContainer } from '../components/Card/Card.styled';
+import { CardContainerGrid} from '../components/Card/Card.styled';
 import { SectionTopMoviles } from '../components/Sections/Sections.styled';
-import Image from 'next/image';
-import demoImg from '../demo/PCkKKlEFrzPbi2hS.jpeg'
-import { Button } from '../components/Button/Button.styled';
 import { fetchProducts } from '../features/products';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-
-const dummyMap = [1,2,3,4,5,6,7]
+import Card from '../components/Card/Card';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
-  const products = useAppSelector((state) => state.products);
-
-  console.log(products)
+  const products = useAppSelector((state) => state.products.products);
+  const catLimiter = (query: string, num: number) => products.filter(ele => ele.categories[0].slug === query).slice(0,num)
 
   useEffect(() => {
     dispatch(fetchProducts())
@@ -24,29 +19,38 @@ const Home: NextPage = () => {
   return (
     <React.Fragment>
       <Hero />
-       {/* Dummy data */}
-       <SectionTopMoviles id="topMoviles">
+       {/*The Tariff Section*/}
+       <SectionTopMoviles id="topTarifas">
         <div className='sectionTextDiv'>
-          <h1>Los Móviles Más Vendidos</h1>
+          <h1>Las Tarifas</h1>
         </div>
         <CardContainerGrid>
           {
-       dummyMap.map((d) => (
-      <Card key={d}>
-        <CardImgContainer>
-          <Image src={demoImg} alt='demo image' width='100%' height='100%' layout='responsive' objectFit='cover' style={{borderRadius: '10px'}} />
-        </CardImgContainer>
-        <CardContent>
-          <h2>Home</h2>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem Ipsum has been the industrys
-            standard dummy text ever...
-          </p>
-          <Button>Add to cart</Button>
-        </CardContent>
-          
-      </Card> 
+       catLimiter('tarifas', 3).map((item) => (
+       <Card 
+       key={item.id}
+       product={item}
+       btnLink="/productos"
+       btnText='Ir la Tienda'
+       />
+      ))}
+        </CardContainerGrid>
+      </SectionTopMoviles>
+
+      {/*The Mobiles Section*/}
+      <SectionTopMoviles id="topMoviles">
+        <div className='sectionTextDiv'>
+          <h1>Los móviles más vendidos</h1>
+        </div>
+        <CardContainerGrid>
+          {
+       catLimiter('moviles', 4).map((item) => (
+       <Card 
+       key={item.id}
+       product={item}
+       btnLink="/productos"
+       btnText='Ir la Tienda'
+       />
       ))}
         </CardContainerGrid>  
       </SectionTopMoviles>

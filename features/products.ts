@@ -4,12 +4,10 @@ import { commerce } from '../lib/commerce'
 
 interface ProductSliceInitState {
 	products: Product[]
-	isLoading: boolean
 }
 
 const initialState: ProductSliceInitState = {
 	products: [],
-	isLoading: false,
 }
 export const fetchProducts = createAsyncThunk(
 	'products/fetchProducts',
