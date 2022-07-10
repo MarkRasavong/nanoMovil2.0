@@ -9,7 +9,7 @@ import { CardContent, CardImgContainer, CardItem, CardTitle } from "./Card.style
 interface CardProps {
   product: Product;
   btnText: string;
-  btnLink: string;
+  btnLink?: string;
 }
 
 const Card = ({product, btnText, btnLink}: CardProps) => {
@@ -34,7 +34,7 @@ const Card = ({product, btnText, btnLink}: CardProps) => {
       <div dangerouslySetInnerHTML={{__html: description}} style={{ fontFamily: theme.fonts[2]}}/>
     </CardContent>
     <div className='cardButtonDiv'>
-      <Link passHref href={btnLink} >
+      <Link passHref href={btnLink || ''} >
         <Button>{btnText}</Button>
       </Link>
       

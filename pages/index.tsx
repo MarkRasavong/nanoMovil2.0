@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import type { NextPage } from 'next';
 import Hero from '../components/Hero/Hero';
 import { CardContainerGrid} from '../components/Card/Card.styled';
-import { SectionTopMoviles } from '../components/Sections/Sections.styled';
+import { Section } from '../components/Sections/Sections.styled';
 import { fetchProducts } from '../features/products';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import Card from '../components/Card/Card';
@@ -20,8 +20,8 @@ const Home: NextPage = () => {
     <React.Fragment>
       <Hero />
        {/*The Tariff Section*/}
-       <SectionTopMoviles id="topTarifas">
-        <div className='sectionTextDiv'>
+       <Section id="topTarifas">
+        <div>
           <h1>Las Tarifas</h1>
         </div>
         <CardContainerGrid>
@@ -35,11 +35,11 @@ const Home: NextPage = () => {
        />
       ))}
         </CardContainerGrid>
-      </SectionTopMoviles>
+      </Section>
 
       {/*The Mobiles Section*/}
-      <SectionTopMoviles id="topMoviles">
-        <div className='sectionTextDiv'>
+      <Section id="topMoviles">
+        <div>
           <h1>Los móviles más vendidos</h1>
         </div>
         <CardContainerGrid>
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
        />
       ))}
         </CardContainerGrid>  
-      </SectionTopMoviles>
+      </Section>
     </React.Fragment>
   )
 }

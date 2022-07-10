@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const SectionTopMoviles = styled.section`
+export const Section = styled.section`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -42,4 +42,17 @@ export const SectionTopMoviles = styled.section`
 	@media (min-width: 1281px) {
 		margin-bottom: 6em;
 	}
+`
+
+export const ProductTitle = styled.h1`
+	font-size: 3em;
+	color: ${({ theme }) => theme.colors.nanoWhite};
+	margin-left: 0.3em;
+`
+export const ProductosSection = styled.section`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	margin-top: 10em;
 `
