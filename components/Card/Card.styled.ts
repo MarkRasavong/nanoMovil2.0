@@ -65,6 +65,23 @@ export const CardItem = styled.div`
 		padding: 0.5em;
 	}
 
+	.cardBtnDivCardItem {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		padding: 0.5em;
+
+		button {
+			width: 15%;
+			background-color: ${({ theme }) => theme.colors.nanoBlue};
+		}
+
+		button:nth-child(4) {
+			width: 40%;
+			background-color: red;
+		}
+	}
+
 	button {
 		text-transform: uppercase;
 		width: 50%;
@@ -103,4 +120,14 @@ export const CardTitle = styled.span`
 	display: inline-flex;
 	justify-content: space-between;
 	margin-bottom: 0.8em;
+`
+export const QuantityDiv = styled.span`
+	display: inline-block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	font-family: ${({ theme }) => theme.fonts[0]};
+	font-size: 1.2em;
+	margin-top: 0.5em;
 `

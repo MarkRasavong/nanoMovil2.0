@@ -37,7 +37,6 @@ const Card = ({product, btnText, btnLink}: CardProps) => {
       <Link passHref href={btnLink || ''} >
         <Button>{btnText}</Button>
       </Link>
-      
     </div>
   </CardItem> 
   )

@@ -56,3 +56,34 @@ export const ProductosSection = styled.section`
 
 	margin-top: 10em;
 `
+
+export const CestaDetailFooter = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 10%;
+	width: 100%;
+	justify-content: space-between;
+
+	.subtotal {
+		font-family: ${({ theme }) => theme.fonts[0]};
+		font-size: 2em;
+		color: ${({ theme }) => theme.colors.nanoWhite};
+	}
+
+	.emptyButton {
+		width: 45%;
+		font-size: 1em;
+		background-color: red;
+	}
+
+	.checkoutButton {
+		min-width: 45%;
+		background-color: ${({ theme }) => theme.colors.nanoOrange};
+		font-size: 1em;
+	}
+`
+export const CestaButtonFtrDiv = styled.div`
+	display: flex;
+	justify-content: space-evenly;
+`
