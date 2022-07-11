@@ -34,24 +34,20 @@ const Cesta = () => {
   const link = ({
     textDecoration: 'underline',
     cursor: 'pointer',
-  });
-
-  const emptyCartStyle = ({
-    color: theme.colors.nanoWhite,
-    textAlign: 'center',
-  })
+  }); 
 
   return (
     <Section>
       <h1 style={{ fontSize: '4em', color: theme.colors.nanoWhite, marginTop: '1em'}}>Cesta</h1>
-      {renderCartItems()}
-      {
-        <h1 style={emptyCartStyle}>
-          Oye Nan@, No tiene artículos en tu cesta de compras. <br/>
-          <Link href="/productos" passHref >
-            <span style={link}>¡vamos a comprar!</span>
-          </Link>
-        </h1>
+      {renderCartItems() && 
+        <div style={{ textAlign: 'center' }}>
+          <h1 style={{color: theme.colors.nanoWhite}}>
+            Oye Nan@, No tiene artículos en tu cesta de compras. <br/>
+            <Link href="/productos" passHref >
+              <span style={link}>¡vamos a comprar!</span>
+            </Link>
+          </h1>
+        </div>
       }
     </Section>
   )

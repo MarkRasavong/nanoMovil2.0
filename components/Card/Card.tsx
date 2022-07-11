@@ -10,9 +10,10 @@ interface CardProps {
   product: Product;
   btnText: string;
   btnLink?: string;
+  onButtonClick?: () => void;
 }
 
-const Card = ({product, btnText, btnLink}: CardProps) => {
+const Card = ({product, btnText, btnLink, onButtonClick}: CardProps) => {
   const theme = useTheme() as NanoTheme;
   const {image, name, price, description, id} = product;
 
@@ -35,7 +36,7 @@ const Card = ({product, btnText, btnLink}: CardProps) => {
     </CardContent>
     <div className='cardButtonDiv'>
       <Link passHref href={btnLink || ''} >
-        <Button>{btnText}</Button>
+        <Button onClick={onButtonClick}>{btnText}</Button>
       </Link>
     </div>
   </CardItem> 

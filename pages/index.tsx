@@ -6,6 +6,7 @@ import { Section } from '../components/Sections/Sections.styled';
 import { fetchProducts } from '../features/products';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import Card from '../components/Card/Card';
+import { fetchCart } from '../features/cart';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +14,8 @@ const Home: NextPage = () => {
   const catLimiter = (query: string, num: number) => products.filter(ele => ele.categories[0].slug === query).slice(0,num)
 
   useEffect(() => {
-    dispatch(fetchProducts())
+    dispatch(fetchProducts());
+    dispatch(fetchCart());
   }, [dispatch])
 
   return (
@@ -58,4 +60,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Home;
