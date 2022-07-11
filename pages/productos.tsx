@@ -29,19 +29,22 @@ const Productos = () => {
           <ProductTitle>Nuestro Productos</ProductTitle>
       </div>
       <RadioGroup>
-        <RadioBtn 
+        <RadioBtn
+          key='radio_Moviles' 
           label="Móviles" 
           value="moviles" 
           catName='nanoProductos' 
           onClick={() => setSelectedRadio('moviles')} checked={selectedRadio === 'moviles' ? true : false}
         />
-        <RadioBtn 
+        <RadioBtn
+          key='radio_Tarifas'
           label="Tarifas" 
           value="tarifas" 
           catName='nanoProductos' 
           onClick={() => setSelectedRadio('tarifas')} checked={selectedRadio === 'tarifas' ? true : false}
         />
         <RadioBtn 
+          key='radio_Todos'
           label="Todos" 
           value="" 
           catName='nanoProductos' 

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, {useEffect, useState } from 'react';
 import { IconLinksContainer, MobileMenuButton, NavbarContainer, NavBarLinks, NavbarLogo } from './Navbar.styled';
 import{ MdMenu, MdOutlineClose } from 'react-icons/md';
-import { RiShoppingCart2Fill, RiUserFill } from 'react-icons/ri';
+import { RiShoppingCart2Fill } from 'react-icons/ri';
 import Image from 'next/image';
 import { useTheme } from 'styled-components';
 import { NanoTheme, theme } from '../../styles/theme';
@@ -12,8 +12,7 @@ const pages = [
 ];
 
 const iconsLinks = [
-  {name: 'cart', link:'/cesta', icn: <RiShoppingCart2Fill size={'1.6em'} color={theme.colors.nanoOrange}/>},
-  {name: 'account', link: '/cuenta', icn: <RiUserFill size={'1.6em'} color={theme.colors.nanoOrange}/>}
+  {name: 'cart', link:'/cesta', icn: <RiShoppingCart2Fill size={'1.6em'} color={theme.colors.nanoOrange}/>}
 ];
 
 const Navbar = () => {

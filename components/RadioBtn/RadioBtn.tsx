@@ -12,7 +12,7 @@ export interface RadioBtnProps {
 const RadioBtn = ({label, catName, value, onClick, checked}: RadioBtnProps) => {
   return (
     <div onClick={onClick}>
-      <Radio type="radio" name={catName} value={value} checked={checked}/>
+      <Radio type="radio" name={catName} value={value} checked={checked} onChange={onClick}/>
       <label htmlFor={value} style={{ cursor: 'pointer' }}>{label}</label>
     </div>
   )
