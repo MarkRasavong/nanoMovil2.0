@@ -16,8 +16,8 @@ const pages = [
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
-  const {cart} = useAppSelector((state) => state.cart)
   const theme = useTheme() as NanoTheme;
+  const cart = useAppSelector((state) => state.cart.data)
   const [ displayMobileMenu, setDisplayMobileMenu ] = useState(false);
   const [clientWindowHeight, setClientWindowHeight] = useState<number>(0);
   const [backgroundTransparacy, setBackgroundTransparacy] = useState(0);
@@ -51,7 +51,8 @@ const Navbar = () => {
 
   useEffect(() => {
     dispatch(fetchCart())
-  }, [dispatch, cart])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart?.total_items])
 
   return (
     <NavbarContainer
@@ -84,7 +85,7 @@ const Navbar = () => {
 
       <IconLinksContainer>
             <button key={`NavIcn_cart`}>
-            <Badge badgeContent={cart?.total_items} color='error'>
+            <Badge badgeContent={cart?.total_items || 0} color='error'>
               <Link href={'/cesta'} passHref>
                 <RiShoppingCart2Fill size={'1.6em'} color={theme.colors.nanoOrange}/>
               </Link>
@@ -103,4 +104,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar;
+export default React.memo(Navbar);

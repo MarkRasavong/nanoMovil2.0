@@ -16,11 +16,12 @@ const Productos = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-    dispatch(fetchCart());
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleBtnCartClick = (productId: string, quantity: number) => {
-    dispatch(addToCart({productId, quantity}))
+    dispatch(addToCart({productId, quantity}));
+    dispatch(fetchCart());
   };
 
   return (

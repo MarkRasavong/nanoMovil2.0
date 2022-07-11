@@ -1,3 +1,4 @@
+import { Cart } from '@chec/commerce.js/types/cart'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { commerce } from '../lib/commerce'
 
@@ -21,7 +22,7 @@ export const addToCart = createAsyncThunk(
 )
 
 const initialState = {
-	cart: {},
+	data: {} as Cart,
 }
 
 const cartSlice = createSlice({
@@ -31,10 +32,10 @@ const cartSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchCart.fulfilled, (state, action) => {
-				state.cart = action.payload
+				state.data = action.payload as Cart
 			})
 			.addCase(addToCart.fulfilled, (state, action) => {
-				state.cart = action.payload
+				state.data = action.payload as unknown as Cart
 			})
 	},
 })

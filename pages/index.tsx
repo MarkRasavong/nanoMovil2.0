@@ -6,7 +6,6 @@ import { Section } from '../components/Sections/Sections.styled';
 import { fetchProducts } from '../features/products';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import Card from '../components/Card/Card';
-import { fetchCart } from '../features/cart';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -15,8 +14,8 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-    dispatch(fetchCart());
-  }, [dispatch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <React.Fragment>
