@@ -15,6 +15,7 @@ export const addToCart = createAsyncThunk(
 	'cart/addToCart',
 	async ({ productId, quantity }: AddToCartProps) => {
 		const res = await commerce.cart.add(productId, quantity)
+
 		return res
 	}
 )
@@ -28,9 +29,13 @@ const cartSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder.addCase(fetchCart.fulfilled, (state, action) => {
-			state.cart = action.payload
-		})
+		builder
+			.addCase(fetchCart.fulfilled, (state, action) => {
+				state.cart = action.payload
+			})
+			.addCase(addToCart.fulfilled, (state, action) => {
+				state.cart = action.payload
+			})
 	},
 })
 

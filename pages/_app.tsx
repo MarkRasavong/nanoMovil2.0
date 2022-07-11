@@ -1,6 +1,6 @@
 import '../styles/globals.ts'
 import type { AppProps } from 'next/app'
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import Layout from '../components/Layout'
 import GlobalStyles from '../styles/globals'
 import { ThemeProvider } from 'styled-components'
@@ -13,11 +13,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Fragment>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <Layout>
           <Provider store={store}>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} /> 
+            </Layout>
           </Provider>
-        </Layout>
       </ThemeProvider>
     </Fragment>
   

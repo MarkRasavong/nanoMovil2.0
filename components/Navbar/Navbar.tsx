@@ -5,17 +5,18 @@ import{ MdMenu, MdOutlineClose } from 'react-icons/md';
 import { RiShoppingCart2Fill } from 'react-icons/ri';
 import Image from 'next/image';
 import { useTheme } from 'styled-components';
-import { NanoTheme, theme } from '../../styles/theme';
+import { NanoTheme } from '../../styles/theme';
+import { Badge } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { fetchCart } from '../../features/cart';
 
 const pages = [
   { name: 'Productos', link: '/productos'}
 ];
 
-const iconsLinks = [
-  {name: 'cart', link:'/cesta', icn: <RiShoppingCart2Fill size={'1.6em'} color={theme.colors.nanoOrange}/>}
-];
-
 const Navbar = () => {
+  const dispatch = useAppDispatch();
+  const {cart} = useAppSelector((state) => state.cart)
   const theme = useTheme() as NanoTheme;
   const [ displayMobileMenu, setDisplayMobileMenu ] = useState(false);
   const [clientWindowHeight, setClientWindowHeight] = useState<number>(0);
@@ -48,6 +49,10 @@ const Navbar = () => {
     setDisplayMobileMenu(prevState => !prevState);
   };
 
+  useEffect(() => {
+    dispatch(fetchCart())
+  }, [dispatch, cart])
+
   return (
     <NavbarContainer
     style={{
@@ -78,15 +83,14 @@ const Navbar = () => {
       </NavBarLinks>
 
       <IconLinksContainer>
-        {
-          iconsLinks.map(({name, link, icn}) => (
-            <button key={`NavIcn_${name}`}>
-            <Link href={link} passHref>
-              {icn}
-            </Link>
+            <button key={`NavIcn_cart`}>
+            <Badge badgeContent={cart?.total_items} color='error'>
+              <Link href={'/cesta'} passHref>
+                <RiShoppingCart2Fill size={'1.6em'} color={theme.colors.nanoOrange}/>
+              </Link>
+            </Badge>
+            
           </button>
-          ))
-        }
       </IconLinksContainer>
 
       <MobileMenuButton onClick={handleMobileClick}>
