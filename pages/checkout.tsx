@@ -2,6 +2,7 @@ import { Step, StepLabel, Stepper } from '@mui/material';
 import React, { useState } from 'react'
 import AddressForm from '../components/Form/AddressForm/AddressForm';
 import { CheckoutDiv } from '../components/Form/AddressForm/AddressForm.styled';
+import PaymentForm from '../components/Form/PaymentForm/PaymentForm';
 import { Section } from '../components/Sections/Sections.styled';
 
 const Checkout = () => {
@@ -22,7 +23,7 @@ const Checkout = () => {
             ))
           }
         </Stepper>
-        <AddressForm />
+        <PaymentForm />
       </CheckoutDiv>
     </Section>
   )

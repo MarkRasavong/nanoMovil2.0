@@ -33,5 +33,6 @@ export const CheckoutDiv = styled.div`
 
 	.stepr {
 		padding: 2em, 0, 5em;
+		margin-bottom: 2em;
 	}
 `
