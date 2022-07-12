@@ -8,6 +8,7 @@ export const FooterDiv = styled.footer`
 	height: 5em;
 	width: 100%;
 	background-color: red;
+	margin-top: 2em;
 
 	h4 {
 		font-size: 2rem;

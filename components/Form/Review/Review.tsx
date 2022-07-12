@@ -9,14 +9,16 @@ const Review = () => {
     <div>
       <ShoppingListContainer> {/* map from checkout Token line_items */}
         <ShopListItem>
-        <span>Product Name</span>
+        <span>Product Name iiaojfoij oiadjfoi adifjoiadjf huidafhiufhauidshf audshfuahsduihfiasoudh</span>
         <span className="subtitle">{`Quanitity: 1`}</span>
         </ShopListItem> 
-        <p>pline_total.formatted_with_symbol</p>
+        <div>
+          <p>€10000.00</p>
+        </div>
       </ShoppingListContainer>
       <ShoppingListContainer style={{ padding: '10px 0'}} >
           <span className="importeTotal">Importe Total</span>
-          <p className="ilPrecio">1€</p>
+          <p className="ilPrecio">10000000€</p>
       </ShoppingListContainer>
     </div>
     </>

@@ -23,7 +23,7 @@ const Checkout = () => {
             ))
           }
         </Stepper>
-        <PaymentForm />
+        <AddressForm />
       </CheckoutDiv>
     </Section>
   )

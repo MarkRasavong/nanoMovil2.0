@@ -31,4 +31,5 @@ span {
 export const ShopListItem = styled.div`
 display: flex;
 flex-direction: column;
+overflow: hidden;
 `;
