@@ -1,7 +1,8 @@
 import { Step, StepLabel, Stepper } from '@mui/material';
 import React, { useState } from 'react'
 import AddressForm from '../components/Form/AddressForm/AddressForm';
-import { CheckoutDiv, Section } from '../components/Sections/Sections.styled';
+import { CheckoutDiv } from '../components/Form/AddressForm/AddressForm.styled';
+import { Section } from '../components/Sections/Sections.styled';
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);

@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-export const InputContainer = styled.div`
+export const SelectContainer = styled.div`
 	width: 100%;
 	position: relative;
 	height: 50px;
 	overflow: hidden;
 `
 
-export const InputLabel = styled.label`
+export const SelectLabel = styled.label`
 	position: absolute;
 	bottom: 0px;
 	left: 0%;
@@ -29,7 +29,7 @@ export const InputLabel = styled.label`
 	}
 `
 
-export const TextInput = styled.input`
+export const SelectInput = styled.select`
 	width: 100%;
 	height: 100%;
 	padding-top: 20px;

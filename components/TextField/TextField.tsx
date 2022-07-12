@@ -1,10 +1,14 @@
 import React from 'react'
 import { InputContainer, InputLabel, PlaceholderSpan, TextInput } from './TextField.styled'
 
-const TextField = () => {
+interface TxtFieldProps {
+  type: string;
+}
+
+const TextField = ({type}: TxtFieldProps) => {
   return (
     <InputContainer>
-      <TextInput type="text" name='name' required autoComplete='off'/>
+      <TextInput type={type} name='name' required autoComplete='off'/>
       <InputLabel htmlFor="name">
         <PlaceholderSpan>Name</PlaceholderSpan>
       </InputLabel>

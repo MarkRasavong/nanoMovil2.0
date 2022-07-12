@@ -87,14 +87,3 @@ export const CestaButtonFtrDiv = styled.div`
 	display: flex;
 	justify-content: space-evenly;
 `
-
-export const CheckoutDiv = styled.div`
-	margin-top: 5%;
-	padding: 2em;
-	background-color: white;
-	width: 40%;
-
-	.stepr {
-		padding: 2em, 0, 5em;
-	}
-`
