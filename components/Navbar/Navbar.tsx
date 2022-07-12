@@ -84,16 +84,15 @@ const Navbar = () => {
       </NavBarLinks>
 
       <IconLinksContainer>
-            <button key={`NavIcn_cart`}>
+        <Link href={'/cesta'} passHref>
+          <button key={`NavIcn_cart`}>
             <Badge badgeContent={cart?.total_items || 0} color='error'>
-              <Link href={'/cesta'} passHref>
                 <RiShoppingCart2Fill size={'1.6em'} color={theme.colors.nanoOrange}/>
-              </Link>
             </Badge>
-            
           </button>
+        </Link>
       </IconLinksContainer>
-
+      
       <MobileMenuButton onClick={handleMobileClick}>
           {displayMobileMenu ? 
             <MdOutlineClose color={theme.colors.nanoOrange} size={'3em'}/>

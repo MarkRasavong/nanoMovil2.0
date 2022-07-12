@@ -3,13 +3,32 @@ import Image from 'next/image';
 import { CardContent, CardImgContainer, CardItem, CardTitle, QuantityDiv } from './Card.styled';
 import Link from 'next/link';
 import { Button } from '../Button/Button.styled';
+import { useAppDispatch } from '../../store/hooks';
+import { deleteItemFromCart, updateItemQty } from '../../features/cart';
 
-const CartItem = () => {
+
+const CartItem = ({cartItem}) => {
+  const dispatch = useAppDispatch();
+  const {product_name, quantity, image, line_total, id} = cartItem
+
+  const handleIncrementClick = (productId: string, quantity: number, e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    quantity = quantity + 1;
+    dispatch(updateItemQty({productId, quantity}));
+  };
+
+  const handleDecrementClick = (productId: string, quantity: number, e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    quantity = quantity - 1;
+    dispatch(updateItemQty({productId, quantity}));
+  };
+
   return (
     <CardItem>
       <CardImgContainer>
         <Image 
-        src='/taronja.gif' alt='naranja bailando' 
+        src={image?.url || '/taronja.gif'} 
+        alt={image?.description || 'producto sin descripción'} 
         width='100%' height='100%' 
         layout='responsive' objectFit='cover' 
         style={{borderRadius: '10px'}}
@@ -17,23 +36,25 @@ const CartItem = () => {
       </CardImgContainer>
       <CardContent>
         <CardTitle style={{fontSize: '1em', marginBottom: '0em'}}>
-          <h3>Samsung Galaxy A03s 3/32GB Negro Libre</h3>
-          <h3>precio</h3>
+          <h3>{product_name}</h3>f
+          <h3>{line_total.formatted_with_symbol}</h3>
         </CardTitle>
       </CardContent>
       <div className='cardBtnDivCardItem'>
         <Link passHref href={''} >
-          <Button>-</Button>
+          <Button onClick={(e) => handleDecrementClick(id, quantity, e)}>
+            -
+          </Button>
         </Link>
         <QuantityDiv>
-          1000
+          {quantity}
         </QuantityDiv>
-        <Link passHref href={''} >
-          <Button>+</Button>
-        </Link>
-        <Link passHref href={''} >
-          <Button>Eliminar</Button>
-        </Link>
+          <Button onClick={(e) => handleIncrementClick(id, quantity, e)}>
+            +
+          </Button>
+          <Button onClick={() => dispatch(deleteItemFromCart(id))}>
+            Eliminar
+          </Button>
       </div>
     </CardItem>
   )
