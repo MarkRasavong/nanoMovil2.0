@@ -36,7 +36,7 @@ const CartItem = ({cartItem}) => {
       </CardImgContainer>
       <CardContent>
         <CardTitle style={{fontSize: '1em', marginBottom: '0em'}}>
-          <h3>{product_name}</h3>f
+          <h3>{product_name}</h3>
           <h3>{line_total.formatted_with_symbol}</h3>
         </CardTitle>
       </CardContent>

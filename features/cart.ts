@@ -37,6 +37,11 @@ export const deleteItemFromCart = createAsyncThunk(
 	}
 )
 
+export const emptyCart = createAsyncThunk('cart/emptyCart', async () => {
+	const res = await commerce.cart.empty()
+	return res
+})
+
 const initialState = {
 	data: {} as Cart,
 }
@@ -57,6 +62,9 @@ const cartSlice = createSlice({
 				state.data = action.payload as unknown as Cart
 			})
 			.addCase(deleteItemFromCart.fulfilled, (state, action) => {
+				state.data = action.payload as unknown as Cart
+			})
+			.addCase(emptyCart.fulfilled, (state, action) => {
 				state.data = action.payload as unknown as Cart
 			})
 	},

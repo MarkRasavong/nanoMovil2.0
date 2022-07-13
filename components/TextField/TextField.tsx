@@ -1,17 +1,32 @@
 import React from 'react'
+import { Controller, useFormContext } from 'react-hook-form';
 import { InputContainer, InputLabel, PlaceholderSpan, TextInput } from './TextField.styled'
 
 interface TxtFieldProps {
   type: string;
+  label: string;
+  name: string;
 }
 
-const TextField = ({type}: TxtFieldProps) => {
+const TextField = ({type, label, name}: TxtFieldProps) => {
+  const { control } = useFormContext();
+
   return (
     <InputContainer>
-      <TextInput type={type} name='name' required autoComplete='off'/>
-      <InputLabel htmlFor="name">
-        <PlaceholderSpan>Name</PlaceholderSpan>
-      </InputLabel>
+    <Controller
+      name={name}
+      control={control}
+      render={
+        ({ field }) => (
+          <React.Fragment>
+            <TextInput type={type} required {...field}/>
+            <InputLabel htmlFor={name}>
+              <PlaceholderSpan>{label}</PlaceholderSpan>
+            </InputLabel>
+          </React.Fragment>
+        )
+      }
+      />
     </InputContainer>
     
   )
