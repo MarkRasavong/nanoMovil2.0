@@ -15,8 +15,6 @@ const Cesta = () => {
   const cartItems = useAppSelector(state => state.cart.data.line_items);
   const theme = useTheme() as NanoTheme;
 
-  console.log(cartItems);
-
   useEffect(() => {
     dispatch(fetchCart());
   }, [dispatch])
