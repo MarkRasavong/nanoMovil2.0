@@ -8,6 +8,17 @@ interface Countries {
 const initialState = {
 	checkoutToken: {} as CheckoutToken,
 	country: {} as Countries,
+	submissions: {
+		address: '',
+		city: '',
+		email: '',
+		firstName: '',
+		lastName: '',
+		shipOption: '',
+		subdivision: '',
+		postalCode: '',
+	},
+	activeStep: 0,
 }
 
 export const retrieveToken = createAsyncThunk(
@@ -27,7 +38,17 @@ export const retrieveShipCountry = createAsyncThunk(
 const checkoutSlice = createSlice({
 	name: 'checkout',
 	initialState,
-	reducers: {},
+	reducers: {
+		formSubmission: (state, action) => {
+			state.submissions = action.payload
+		},
+		nextStep: (state) => {
+			state.activeStep += 1
+		},
+		backStep: (state) => {
+			state.activeStep -= 1
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(retrieveToken.fulfilled, (state, action) => {
@@ -39,4 +60,5 @@ const checkoutSlice = createSlice({
 	},
 })
 
+export const { formSubmission, nextStep, backStep } = checkoutSlice.actions
 export default checkoutSlice.reducer

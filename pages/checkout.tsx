@@ -1,19 +1,20 @@
 import { Step, StepLabel, Stepper } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { Button } from '../components/Button/Button.styled';
 import AddressForm from '../components/Form/AddressForm/AddressForm';
 import { CheckoutDiv } from '../components/Form/AddressForm/AddressForm.styled';
 import PaymentForm from '../components/Form/PaymentForm/PaymentForm';
 import { Section } from '../components/Sections/Sections.styled';
-import { retrieveShipCountry, retrieveToken } from '../features/checkout';
+import { backStep, retrieveShipCountry, retrieveToken } from '../features/checkout';
 import { commerce } from '../lib/commerce';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 const Checkout = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [activeStep, setActiveStep] = useState(0);
-  const cart = useAppSelector((state) => state.cart.data)
+  const activeStep = useAppSelector((state) => state.checkout.activeStep);
+  const cart = useAppSelector((state) => state.cart.data);
   const pasitos = ['Dirección de envío', 'Método de pago'];
 
   useEffect(() => {
@@ -22,8 +23,6 @@ const Checkout = () => {
             try {
                 const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
                 const { countries } = await commerce.services.localeListShippingCountries(token.id);
-
-                console.log(countries)
 
                 dispatch(retrieveToken(token))
                 dispatch(retrieveShipCountry(countries))
@@ -34,6 +33,8 @@ const Checkout = () => {
         generateToken();
     }
 }, [cart, router]);
+
+const Form = () => activeStep === 0 ? <AddressForm /> : <PaymentForm />
 
   return (
     <Section>
@@ -49,7 +50,13 @@ const Checkout = () => {
             ))
           }
         </Stepper>
-        <AddressForm />
+        {
+        activeStep === pasitos.length ? (
+            <Button onClick={() => dispatch(backStep())}>CONFIRMED</Button>
+          ) : (
+            cart.id && <Form />
+          )
+        }
       </CheckoutDiv>
     </Section>
   )

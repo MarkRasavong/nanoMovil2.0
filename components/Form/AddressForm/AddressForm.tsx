@@ -2,23 +2,27 @@ import { GetShippingOptionsResponse } from '@chec/commerce.js/features/checkout'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
+import { FieldValues, FormProvider, useForm } from 'react-hook-form'
+import { formSubmission, nextStep } from '../../../features/checkout'
 import { commerce } from '../../../lib/commerce'
-import { useAppSelector } from '../../../store/hooks'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { Button } from '../../Button/Button.styled'
 import SelectDropdown from '../../SelectDropdown/SelectDropdown'
 import TextField from '../../TextField/TextField'
 import {FormButtonDiv, FormContainer } from './AddressForm.styled'
 
 const AddressForm = () => {
+  const dispatch = useAppDispatch();
+  const methods = useForm();
   const {id: tokenId} = useAppSelector((state) => state.checkout.checkoutToken)
   const checkout = useAppSelector((state) => state.checkout)
   const [subdivisions, setSubdvisions] = useState({});
   const [shippingOptions, setShippingOptions] = useState<GetShippingOptionsResponse[]>([]);
-  const methods = useForm();
-  const [country, setCountry] = useState('ES');
-  const [shippingSubdivision, setShippingSubdivision] = useState('');
-  const [shippingOpt, setShippingOpt] = useState('');
+  const [shipData, setShipData] = useState({
+    country: '',
+    subdivision: '',
+    shipOption: ''
+  })
 
   const textFieldDetails = [
     {name: 'firstName', label: 'Nombre'}, {name: 'lastName', label: 'Apellido(s)'}, {name: 'address', label: 'Dirección'},
@@ -28,46 +32,52 @@ const AddressForm = () => {
 const fetchSubdivisions = async (countryCode: string, checkoutTokenId: string) => {
   const {subdivisions} = await commerce.services.localeListShippingSubdivisions(checkoutTokenId, countryCode);
   setSubdvisions(subdivisions);
-  setShippingSubdivision(subdivisions[0]);
 };
 
 const fetchShippingOptions = async (checkoutTokenId: string, stateProvince: string) => {
   const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country: 'ES', region: stateProvince });
-  setShippingOptions(options)
-  setShippingOpt(shippingOptions[0]?.id)
+  setShippingOptions(options);
 };
 
 useEffect(() => {
-  if (country) fetchSubdivisions('ES', tokenId);
-}, [country, tokenId]);
+  if (shipData.country !== '') fetchSubdivisions('ES', tokenId);
+}, [shipData.country, tokenId]);
 
 useEffect(() => {
-  if(shippingSubdivision) fetchShippingOptions(tokenId, shippingSubdivision)
-}, [tokenId, shippingSubdivision])
-  
+  if(shipData.subdivision !== '') fetchShippingOptions(tokenId, shipData.subdivision)
+}, [tokenId, shipData.subdivision])
+
+const handleFormSubmit = (data: FieldValues) => {
+  dispatch(formSubmission({...data, ...shipData}));
+  dispatch(nextStep());
+};
+
   return (
     <>
     <h3>Dirección de envío</h3>
     <FormProvider {...methods}>
-      <FormContainer>
+      <FormContainer onSubmit={methods.handleSubmit((data) => handleFormSubmit(data))}>
             {
               textFieldDetails.map(({name, label}) => (
                 <TextField type="text" name={name} label={label} key={`textField${label}`}/>
               ))
             }
-          <SelectDropdown name='País' value={country} onChange={e => setCountry(e.target.value)}>
+          <SelectDropdown name='País' value={shipData.country} onChange={e => setShipData({...shipData, country:e.target.value})}>
             {
               Object.keys(checkout.country).map((code) => <option value={code} key={`selectCountryCode_${code}`}>España</option>)
             }
+            <option value='' key={`selectCountryCode_null`} disabled>Seleciona País</option>
           </SelectDropdown>
-          <SelectDropdown name='Provincia' value={shippingSubdivision} onChange={e => setShippingSubdivision(e.target.value)}>
-          º{
+          <SelectDropdown name='Provincia' value={shipData.subdivision} onChange={e => setShipData({...shipData, subdivision:e.target.value})}>
+            {
               Object.entries(subdivisions).map(([code, name]) => <option value={code} key={`selectSubdivision_${code}`}>
                 {name as string}
                 </option>)
             }
+            <option value='' key={`selectProvincia_null`} disabled>Seleciona Provincia</option>
+
           </SelectDropdown>
-          <SelectDropdown name='Envío' value={shippingOpt} onChange={e => setShippingOpt(e.target.value)}>
+          <SelectDropdown name='Envío' value={shipData.shipOption} onChange={e => setShipData({...shipData, shipOption:e.target.value})}>
             {
               shippingOptions.map(sO => (
                 <option value={sO.id} key={`selectSO_${sO.id}`}>
@@ -75,12 +85,13 @@ useEffect(() => {
                 </option>
               ))
             }
+            <option value='' key={`selectShipping_null`} disabled>Seleciona Envío</option>
           </SelectDropdown>
         <FormButtonDiv>
           <Link passHref href='/cesta'>
             <Button>Volver al carrito</Button>
           </Link>
-          <Button>Siguiente</Button>
+          <Button type="submit">Siguiente</Button>
         </FormButtonDiv>
       </FormContainer>
     </FormProvider>
@@ -88,4 +99,4 @@ useEffect(() => {
   )
 }
 
-export default AddressForm
+export default AddressForm;
