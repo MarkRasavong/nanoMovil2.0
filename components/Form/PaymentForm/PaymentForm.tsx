@@ -55,7 +55,7 @@ const PaymentForm = () => {
     <>
     <Review />
     <hr style={{ borderTop: '1px solid #aaa', margin: '1em'}}/>
-    <h3>Méthodo de pago</h3>
+    <h3 style={{ marginBottom: '1em'}}>Méthodo de pago</h3>
       {/* STRIPE INFORMATION */}
       <Elements stripe={stripePromise}>
         <ElementsConsumer>{({ elements, stripe }) => (

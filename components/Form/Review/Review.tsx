@@ -1,25 +1,32 @@
 import React from 'react';
-import { ShopListItem, ShoppingListContainer } from './Review.styled';
+import { useAppSelector } from '../../../store/hooks';
+import { IlTotaleScatola, ShopListItem, ShoppingListContainer } from './Review.styled';
 
 const Review = () => {
-
+  const {checkoutToken} = useAppSelector(state => state.checkout)
   return (
     <>
     <h3>Detalles del Pedido</h3>
     <div>
       <ShoppingListContainer> {/* map from checkout Token line_items */}
-        <ShopListItem>
-        <span>Product Name iiaojfoij oiadjfoi adifjoiadjf huidafhiufhauidshf audshfuahsduihfiasoudh</span>
-        <span className="subtitle">{`Quanitity: 1`}</span>
-        </ShopListItem> 
-        <div>
-          <p>€10000.00</p>
-        </div>
+      {checkoutToken.live.line_items.map((product) => (
+        <>
+          <ShopListItem key={product.name}>
+            <div className='productSpan'>
+              <span>{product.name}</span>
+              <span className="subtitle">Quantity: {product.quantity}</span>
+            </div>
+            <div>
+              <p>{product.line_total.formatted_with_symbol}</p>
+            </div>
+          </ShopListItem>
+        </> 
+      ))}
       </ShoppingListContainer>
-      <ShoppingListContainer style={{ padding: '10px 0'}} >
-          <span className="importeTotal">Importe Total</span>
-          <p className="ilPrecio">10000000€</p>
-      </ShoppingListContainer>
+      <IlTotaleScatola>
+          <span className="importeTotale">Importe Total</span>
+          <p className="ilPrecio">{checkoutToken.live.subtotal.formatted_with_symbol}</p>
+      </IlTotaleScatola>
     </div>
     </>
   )
