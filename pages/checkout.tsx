@@ -1,4 +1,5 @@
 import { Step, StepLabel, Stepper } from '@mui/material';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
 import { Button } from '../components/Button/Button.styled';
@@ -6,7 +7,7 @@ import AddressForm from '../components/Form/AddressForm/AddressForm';
 import { CheckoutDiv } from '../components/Form/AddressForm/AddressForm.styled';
 import PaymentForm from '../components/Form/PaymentForm/PaymentForm';
 import { Section } from '../components/Sections/Sections.styled';
-import { backStep, retrieveToken } from '../features/checkout';
+import { resetStep, retrieveToken, setError } from '../features/checkout';
 import { commerce } from '../lib/commerce';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 
@@ -14,6 +15,9 @@ const Checkout = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const activeStep = useAppSelector((state) => state.checkout.activeStep);
+  const err = useAppSelector((state) => state.checkout.orderError);
+  const usr = useAppSelector((state) => state.checkout.user_submission)
+  const order = useAppSelector((state) => state.checkout.order)
   const cart = useAppSelector((state) => state.cart.data);
   const pasitos = ['Dirección de envío', 'Método de pago'];
 
@@ -37,7 +41,73 @@ useEffect(() => {
   }
 }, [cart.line_items, router]);
 
-const Form = () => activeStep === 0 ? <AddressForm /> : <PaymentForm />
+  //creates timeout if order is taking long to process payment TESTING PURPOSES!
+  const timeOutErrReset = () => {
+    setTimeout(() => {
+      dispatch(setError(false));
+    }, 3000);
+  };
+
+  const handleHomeClick = () => {
+    router.push('/');
+    setTimeout(() => {
+      dispatch(resetStep());;
+    }, 3000);
+  }
+
+let Confirmation = () =>
+    order.customer ? (
+      <React.Fragment>
+        <div style={{ textAlign: 'center'}}>
+          <h2>
+            Gràcies, {order.customer.firstname}!
+          </h2>
+          <hr />
+          <h3>
+            Order ref: {order.customer_reference}
+          </h3>
+      <Image src="/taronja.gif" alt='dancing orange' width={400} height={400}/>
+        </div>
+        <br />
+        <Button onClick={handleHomeClick}>
+          Volver
+        </Button>
+      </React.Fragment>
+    ) : <React.Fragment>
+    <div style={{ textAlign: 'center'}}>
+      <h2>
+        Gràcies, {usr.firstName}!
+      </h2>
+      <hr />
+      <h3>
+        Su pedido esta en tramite!
+      </h3>
+      <Image src="/taronja.gif" alt='dancing orange' width={400} height={400}/>      
+    </div>
+    <br />
+    <Button onClick={handleHomeClick}>
+      Volver
+    </Button>
+  </React.Fragment>
+
+  if (err) {
+    // eslint-disable-next-line react/display-name
+    Confirmation = () => {
+      timeOutErrReset();
+    return (
+            <React.Fragment>
+              <h5>
+                Error: Los datos no son válidos.
+              </h5>
+              <br />
+              <Button onClick={handleHomeClick}>
+                Volver
+              </Button>
+            </React.Fragment>
+          )};
+  }
+
+  const Form = () => activeStep === 0 ? <AddressForm /> : <PaymentForm />
 
   return (
     <Section>
@@ -55,7 +125,7 @@ const Form = () => activeStep === 0 ? <AddressForm /> : <PaymentForm />
         </Stepper>
         {
         activeStep === pasitos.length ? (
-            <Button onClick={() => dispatch(backStep())}>CONFIRMED</Button>
+            <Confirmation />
           ) : (
             cart.id && <Form />
           )

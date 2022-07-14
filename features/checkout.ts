@@ -1,3 +1,4 @@
+import { CheckoutCaptureResponse } from '@chec/commerce.js/types/checkout-capture-response'
 import { CheckoutToken } from '@chec/commerce.js/types/checkout-token'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
@@ -19,6 +20,9 @@ const initialState = {
 		country: '',
 	},
 	activeStep: 0,
+	capturedOrder: {},
+	order: {} as CheckoutCaptureResponse,
+	orderError: false,
 }
 
 export const retrieveToken = createAsyncThunk(
@@ -41,6 +45,15 @@ const checkoutSlice = createSlice({
 		backStep: (state) => {
 			state.activeStep -= 1
 		},
+		setOrder: (state, action) => {
+			state.order = action.payload
+		},
+		setError: (state, action) => {
+			state.orderError = action.payload
+		},
+		resetStep: (state) => {
+			state.activeStep = 0
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(retrieveToken.fulfilled, (state, action) => {
@@ -49,5 +62,12 @@ const checkoutSlice = createSlice({
 	},
 })
 
-export const { formSubmission, nextStep, backStep } = checkoutSlice.actions
+export const {
+	formSubmission,
+	nextStep,
+	backStep,
+	setOrder,
+	setError,
+	resetStep,
+} = checkoutSlice.actions
 export default checkoutSlice.reducer

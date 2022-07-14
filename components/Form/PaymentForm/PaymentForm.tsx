@@ -3,17 +3,18 @@ import React from 'react'
 import Review from '../Review/Review'
 import { PayButtonDiv } from './PaymentForm.styled'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
-import { backStep, nextStep } from '../../../features/checkout'
+import { backStep, nextStep, setError, setOrder } from '../../../features/checkout'
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js'
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js'
+import { commerce } from '../../../lib/commerce'
+import { refreshCart } from '../../../features/cart'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY ?? '');
 
 const PaymentForm = () => {
   const dispatch = useAppDispatch();
   const checkoutToken = useAppSelector((state) => state.checkout.checkoutToken);
-  const shippingData = useAppSelector((state) => state.checkout.user_submission)
-  
+  const shippingData = useAppSelector((state) => state.checkout.user_submission);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>, elements: StripeElements | null, stripe: Stripe | null) => {
     event.preventDefault();
@@ -43,9 +44,21 @@ const PaymentForm = () => {
         },
       };
 
-      console.log(orderData)
+      const onCaptureCheckout = async (checkoutTokenId: string, newOrder: typeof orderData) => {
+        try {
+          const incomingOrder = await commerce.checkout.capture(
+            checkoutTokenId,
+            newOrder
+          );
+          dispatch(setOrder(incomingOrder));
+          dispatch(refreshCart());
+        } catch (error) {
+          dispatch(setError(true));
+        }
+      };
 
       //captureCheckoutDispatch
+      onCaptureCheckout(checkoutToken.id, orderData);
 
       dispatch(nextStep());
     }
