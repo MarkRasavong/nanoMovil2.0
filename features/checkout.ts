@@ -7,7 +7,7 @@ export interface Countries {
 
 const initialState = {
 	checkoutToken: {} as CheckoutToken,
-	submissions: {
+	user_submission: {
 		address: '',
 		city: '',
 		email: '',
@@ -15,7 +15,8 @@ const initialState = {
 		lastName: '',
 		shipOption: '',
 		subdivision: '',
-		postalCode: '',
+		zip: '',
+		country: '',
 	},
 	activeStep: 0,
 }
@@ -32,7 +33,7 @@ const checkoutSlice = createSlice({
 	initialState,
 	reducers: {
 		formSubmission: (state, action) => {
-			state.submissions = action.payload
+			state.user_submission = action.payload
 		},
 		nextStep: (state) => {
 			state.activeStep += 1
