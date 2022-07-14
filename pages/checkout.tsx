@@ -6,7 +6,7 @@ import AddressForm from '../components/Form/AddressForm/AddressForm';
 import { CheckoutDiv } from '../components/Form/AddressForm/AddressForm.styled';
 import PaymentForm from '../components/Form/PaymentForm/PaymentForm';
 import { Section } from '../components/Sections/Sections.styled';
-import { backStep, retrieveShipCountry, retrieveToken } from '../features/checkout';
+import { backStep, retrieveToken } from '../features/checkout';
 import { commerce } from '../lib/commerce';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 
@@ -22,10 +22,7 @@ const Checkout = () => {
         const generateToken = async () =>  {
             try {
                 const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
-                const { countries } = await commerce.services.localeListShippingCountries(token.id);
-
                 dispatch(retrieveToken(token))
-                dispatch(retrieveShipCountry(countries))
             } catch {
                 if (activeStep !== pasitos.length) router.push('/');
             }
@@ -33,6 +30,12 @@ const Checkout = () => {
         generateToken();
     }
 }, [cart, router]);
+
+useEffect(() => {
+  if (Array.isArray(cart.line_items) && cart.line_items.length === 0) {
+    router.push("/");
+  }
+}, [cart.line_items, router]);
 
 const Form = () => activeStep === 0 ? <AddressForm /> : <PaymentForm />
 

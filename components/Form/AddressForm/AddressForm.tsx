@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { FieldValues, FormProvider, useForm } from 'react-hook-form'
-import { formSubmission, nextStep } from '../../../features/checkout'
+import { Countries, formSubmission, nextStep } from '../../../features/checkout'
 import { commerce } from '../../../lib/commerce'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { Button } from '../../Button/Button.styled'
@@ -14,8 +14,8 @@ import {FormButtonDiv, FormContainer } from './AddressForm.styled'
 const AddressForm = () => {
   const dispatch = useAppDispatch();
   const methods = useForm();
-  const {id: tokenId} = useAppSelector((state) => state.checkout.checkoutToken)
-  const checkout = useAppSelector((state) => state.checkout)
+  const tokenId = useAppSelector((state) => state.checkout.checkoutToken.id)
+  const [shippingCountries, setShippingCountries] = useState<Countries>({});
   const [subdivisions, setSubdvisions] = useState({});
   const [shippingOptions, setShippingOptions] = useState<GetShippingOptionsResponse[]>([]);
   const [shipData, setShipData] = useState({
@@ -24,10 +24,19 @@ const AddressForm = () => {
     shipOption: ''
   })
 
+  
   const textFieldDetails = [
     {name: 'firstName', label: 'Nombre'}, {name: 'lastName', label: 'Apellido(s)'}, {name: 'address', label: 'Dirección'},
     {name: 'email', label: 'Correo Electrónico'}, {name: 'city', label: 'Ciudad'}, {name: 'zip', label: 'Código Postal'}
 ];
+
+const fetchShippingCountries = async (checkoutTokenId: string) => {
+  const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
+
+  setShippingCountries(countries);
+};
+
+console.log(shippingCountries)
 
 const fetchSubdivisions = async (countryCode: string, checkoutTokenId: string) => {
   const {subdivisions} = await commerce.services.localeListShippingSubdivisions(checkoutTokenId, countryCode);
@@ -40,11 +49,15 @@ const fetchShippingOptions = async (checkoutTokenId: string, stateProvince: stri
 };
 
 useEffect(() => {
-  if (shipData.country !== '') fetchSubdivisions('ES', tokenId);
+  fetchShippingCountries(tokenId)
+}, [tokenId]);
+
+useEffect(() => {
+  if (shipData.country) fetchSubdivisions('ES', tokenId);
 }, [shipData.country, tokenId]);
 
 useEffect(() => {
-  if(shipData.subdivision !== '') fetchShippingOptions(tokenId, shipData.subdivision)
+  if(shipData.subdivision) fetchShippingOptions(tokenId, shipData.subdivision)
 }, [tokenId, shipData.subdivision])
 
 const handleFormSubmit = (data: FieldValues) => {
@@ -64,7 +77,7 @@ const handleFormSubmit = (data: FieldValues) => {
             }
           <SelectDropdown name='País' value={shipData.country} onChange={e => setShipData({...shipData, country:e.target.value})}>
             {
-              Object.keys(checkout.country).map((code) => <option value={code} key={`selectCountryCode_${code}`}>España</option>)
+              Object.keys(shippingCountries).map((code) => <option value={code} key={`selectCountryCode_${code}`}>España</option>)
             }
             <option value='' key={`selectCountryCode_null`} disabled>Seleciona País</option>
           </SelectDropdown>

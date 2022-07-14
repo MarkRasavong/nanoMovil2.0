@@ -1,13 +1,12 @@
 import { CheckoutToken } from '@chec/commerce.js/types/checkout-token'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-interface Countries {
+export interface Countries {
 	[name: string]: string
 }
 
 const initialState = {
 	checkoutToken: {} as CheckoutToken,
-	country: {} as Countries,
 	submissions: {
 		address: '',
 		city: '',
@@ -28,13 +27,6 @@ export const retrieveToken = createAsyncThunk(
 	}
 )
 
-export const retrieveShipCountry = createAsyncThunk(
-	'checkout/retrieveShipCountry',
-	async (countries: Countries) => {
-		return countries
-	}
-)
-
 const checkoutSlice = createSlice({
 	name: 'checkout',
 	initialState,
@@ -50,13 +42,9 @@ const checkoutSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder
-			.addCase(retrieveToken.fulfilled, (state, action) => {
-				state.checkoutToken = action.payload as CheckoutToken
-			})
-			.addCase(retrieveShipCountry.fulfilled, (state, action) => {
-				state.country = action.payload as Countries
-			})
+		builder.addCase(retrieveToken.fulfilled, (state, action) => {
+			state.checkoutToken = action.payload as CheckoutToken
+		})
 	},
 })
 
