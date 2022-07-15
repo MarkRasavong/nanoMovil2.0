@@ -22,15 +22,15 @@ const PaymentForm = () => {
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const cardElement = elements.getElement(CardElement)!;
-    const result = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
+    const {error, paymentMethod} = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
 
-    if (result.error) {
-      console.log('[error]', result.error);
+    if (error) {
+      console.log('[error]', error);
     } else {
       const orderData = {
         line_items: checkoutToken.live.line_items,
         customer: { firstname: shippingData.firstName, lastname: shippingData.lastName, email: shippingData.email },
-        shipping: { name: `${shippingData.firstName} ${shippingData.lastName}`, street: shippingData.address, town_city: shippingData.city, 
+        shipping: { name: `Primary`, street: shippingData.address, town_city: shippingData.city, 
         county_state: shippingData.subdivision, postal_zip_code: shippingData.zip, country: shippingData.country },
         fulfillment: { shipping_method: shippingData.shipOption },
         billing: {
@@ -38,8 +38,8 @@ const PaymentForm = () => {
             county_state: shippingData.subdivision, postal_zip_code: shippingData.zip, country: shippingData.country },
         payment: {
           gateway: 'stripe',
-          card: {
-            token: result.paymentMethod.id,
+          stripe: {
+            payment_method_id: paymentMethod.id
           },
         },
       };
@@ -56,10 +56,8 @@ const PaymentForm = () => {
           dispatch(setError(true));
         }
       };
-
       //captureCheckoutDispatch
       onCaptureCheckout(checkoutToken.id, orderData);
-
       dispatch(nextStep());
     }
   };

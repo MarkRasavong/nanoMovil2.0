@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { FieldValues, FormProvider, useForm } from 'react-hook-form'
-import { Countries, formSubmission, nextStep } from '../../../features/checkout'
+import { formSubmission, nextStep } from '../../../features/checkout'
 import { commerce } from '../../../lib/commerce'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { Button } from '../../Button/Button.styled'
@@ -15,7 +15,6 @@ const AddressForm = () => {
   const dispatch = useAppDispatch();
   const methods = useForm();
   const tokenId = useAppSelector((state) => state.checkout.checkoutToken.id)
-  const [shippingCountries, setShippingCountries] = useState<Countries>({});
   const [subdivisions, setSubdvisions] = useState({});
   const [shippingOptions, setShippingOptions] = useState<GetShippingOptionsResponse[]>([]);
   const [shipData, setShipData] = useState({
@@ -30,14 +29,6 @@ const AddressForm = () => {
     {name: 'email', label: 'Correo Electrónico'}, {name: 'city', label: 'Ciudad'}, {name: 'zip', label: 'Código Postal'}
 ];
 
-const fetchShippingCountries = async (checkoutTokenId: string) => {
-  const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
-
-  setShippingCountries(countries);
-};
-
-console.log(shippingCountries)
-
 const fetchSubdivisions = async (countryCode: string, checkoutTokenId: string) => {
   const {subdivisions} = await commerce.services.localeListShippingSubdivisions(checkoutTokenId, countryCode);
   setSubdvisions(subdivisions);
@@ -47,10 +38,6 @@ const fetchShippingOptions = async (checkoutTokenId: string, stateProvince: stri
   const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country: 'ES', region: stateProvince });
   setShippingOptions(options);
 };
-
-useEffect(() => {
-  fetchShippingCountries(tokenId)
-}, [tokenId]);
 
 useEffect(() => {
   if (shipData.country) fetchSubdivisions('ES', tokenId);
@@ -76,9 +63,7 @@ const handleFormSubmit = (data: FieldValues) => {
               ))
             }
           <SelectDropdown name='País' value={shipData.country} onChange={e => setShipData({...shipData, country:e.target.value})}>
-            {
-              Object.keys(shippingCountries).map((code) => <option value={code} key={`selectCountryCode_${code}`}>España</option>)
-            }
+            <option value="ES" key='selectCountryCode_ES'>España</option>
             <option value='' key={`selectCountryCode_null`} disabled>Seleciona País</option>
           </SelectDropdown>
           <SelectDropdown name='Provincia' value={shipData.subdivision} onChange={e => setShipData({...shipData, subdivision:e.target.value})}>

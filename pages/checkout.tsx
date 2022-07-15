@@ -6,18 +6,16 @@ import { Button } from '../components/Button/Button.styled';
 import AddressForm from '../components/Form/AddressForm/AddressForm';
 import { CheckoutDiv } from '../components/Form/AddressForm/AddressForm.styled';
 import PaymentForm from '../components/Form/PaymentForm/PaymentForm';
+import { SpinnerDiv } from '../components/Form/PaymentForm/PaymentForm.styled';
 import { Section } from '../components/Sections/Sections.styled';
-import { resetStep, retrieveToken, setError } from '../features/checkout';
+import { resetCheckoutSlice, retrieveToken, setError} from '../features/checkout';
 import { commerce } from '../lib/commerce';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 const Checkout = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const activeStep = useAppSelector((state) => state.checkout.activeStep);
-  const err = useAppSelector((state) => state.checkout.orderError);
-  const usr = useAppSelector((state) => state.checkout.user_submission)
-  const order = useAppSelector((state) => state.checkout.order)
+  const {activeStep, orderError: err, order} = useAppSelector((state) => state.checkout);
   const cart = useAppSelector((state) => state.cart.data);
   const pasitos = ['Dirección de envío', 'Método de pago'];
 
@@ -28,31 +26,25 @@ const Checkout = () => {
                 const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
                 dispatch(retrieveToken(token))
             } catch {
-                if (activeStep !== pasitos.length) router.push('/');
+                if (activeStep !== pasitos.length) router.replace('/');
             }
         };
         generateToken();
-    }
-}, [cart, router]);
-
-useEffect(() => {
-  if (Array.isArray(cart.line_items) && cart.line_items.length === 0) {
-    router.push("/");
-  }
-}, [cart.line_items, router]);
-
-  //creates timeout if order is taking long to process payment TESTING PURPOSES!
-  const timeOutErrReset = () => {
-    setTimeout(() => {
-      dispatch(setError(false));
-    }, 3000);
-  };
+      }
+  }, [cart, router]);
 
   const handleHomeClick = () => {
     router.push('/');
     setTimeout(() => {
-      dispatch(resetStep());;
+      dispatch(resetCheckoutSlice());
     }, 3000);
+  }
+
+  const handleErrorTimer = () => {
+    dispatch(setError(true));
+    setTimeout(() => {
+      dispatch(setError(false));
+    }, 5000);
   }
 
 let Confirmation = () =>
@@ -73,27 +65,17 @@ let Confirmation = () =>
           Volver
         </Button>
       </React.Fragment>
-    ) : <React.Fragment>
-    <div style={{ textAlign: 'center'}}>
-      <h2>
-        Gràcies, {usr.firstName}!
-      </h2>
-      <hr />
-      <h3>
-        Su pedido esta en tramite!
-      </h3>
-      <Image src="/taronja.gif" alt='dancing orange' width={400} height={400}/>      
-    </div>
-    <br />
-    <Button onClick={handleHomeClick}>
-      Volver
-    </Button>
-  </React.Fragment>
+    ) : (
+      <SpinnerDiv>
+        <h2>Cargando su pedido...</h2>
+        <Image src="/taronja.gif" alt='dancing orange' width={400} height={400}/>
+      </SpinnerDiv>
+    );
 
   if (err) {
     // eslint-disable-next-line react/display-name
     Confirmation = () => {
-      timeOutErrReset();
+      handleErrorTimer()
     return (
             <React.Fragment>
               <h5>

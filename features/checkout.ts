@@ -6,19 +6,21 @@ export interface Countries {
 	[name: string]: string
 }
 
+export interface UserSubmission {
+	address: string
+	city: string
+	email: string
+	firstName: string
+	lastName: string
+	shipOption: string
+	subdivision: string
+	zip: string
+	country: string
+}
+
 const initialState = {
 	checkoutToken: {} as CheckoutToken,
-	user_submission: {
-		address: '',
-		city: '',
-		email: '',
-		firstName: '',
-		lastName: '',
-		shipOption: '',
-		subdivision: '',
-		zip: '',
-		country: '',
-	},
+	user_submission: {} as UserSubmission,
 	activeStep: 0,
 	capturedOrder: {},
 	order: {} as CheckoutCaptureResponse,
@@ -51,8 +53,12 @@ const checkoutSlice = createSlice({
 		setError: (state, action) => {
 			state.orderError = action.payload
 		},
-		resetStep: (state) => {
+		resetCheckoutSlice: (state) => {
 			state.activeStep = 0
+			state.capturedOrder = {}
+			state.order = {} as CheckoutCaptureResponse
+			state.orderError = false
+			state.checkoutToken = {} as CheckoutToken
 		},
 	},
 	extraReducers: (builder) => {
@@ -68,6 +74,6 @@ export const {
 	backStep,
 	setOrder,
 	setError,
-	resetStep,
+	resetCheckoutSlice,
 } = checkoutSlice.actions
 export default checkoutSlice.reducer
