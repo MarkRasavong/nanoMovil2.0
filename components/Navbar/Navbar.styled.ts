@@ -117,3 +117,20 @@ export const IconLinksContainer = styled.div`
 		margin-right: auto;
 	}
 `
+export const IcnMobileNavLinks = styled.div`
+	display: none;
+	//mobile
+	@media (max-width: 990px) {
+		display: flex;
+
+		button {
+			border: none;
+			background-color: inherit;
+			border-radius: 100%;
+			padding: 0.8em;
+			cursor: pointer;
+			margin-right: 1rem;
+			transition-duration: 0.13s;
+		}
+	}
+`

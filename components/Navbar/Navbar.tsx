@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, {useEffect, useState } from 'react';
-import { IconLinksContainer, MobileMenuButton, NavbarContainer, NavBarLinks, NavbarLogo } from './Navbar.styled';
+import { IcnMobileNavLinks, IconLinksContainer, MobileMenuButton, NavbarContainer, NavBarLinks, NavbarLogo } from './Navbar.styled';
 import{ MdMenu, MdOutlineClose } from 'react-icons/md';
 import { RiShoppingCart2Fill } from 'react-icons/ri';
 import Image from 'next/image';
@@ -72,15 +72,26 @@ const Navbar = () => {
       </NavbarLogo>
 
       <NavBarLinks style={{ left: displayMobileMenu ? '0%' : '-100%'}}>
+      <>
         {
-          pages.map(({name, link}) => (
-            <li key={`navLink_${name}`} onClick={() => setDisplayMobileMenu(false)} >
-              <Link href={link} passHref>
-                <a style={{fontFamily: theme.fonts[0]}}>{name}</a>
-              </Link>
-            </li>
-          ))
-        }
+            pages.map(({name, link}) => (
+              <li key={`navLink_${name}`} onClick={() => setDisplayMobileMenu(false)} >
+                <Link href={link} passHref>
+                  <a style={{fontFamily: theme.fonts[0]}}>{name}</a>
+                </Link>
+              </li>
+            ))
+          }
+        <IcnMobileNavLinks onClick={() => setDisplayMobileMenu(false)} >
+           <Link href={'/cesta'} passHref>
+             <button key={`NavIcn_cart`}>
+              <Badge badgeContent={cart?.total_items || 0} color='error'>
+                  <RiShoppingCart2Fill size={'4em'} color={theme.colors.nanoOrange}/>
+              </Badge>
+            </button>
+          </Link>
+        </IcnMobileNavLinks>
+        </>
       </NavBarLinks>
 
       <IconLinksContainer>

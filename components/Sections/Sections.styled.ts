@@ -61,7 +61,7 @@ export const CestaDetailFooter = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 10%;
+	margin-top: 1em;
 	width: 100%;
 	justify-content: space-between;
 

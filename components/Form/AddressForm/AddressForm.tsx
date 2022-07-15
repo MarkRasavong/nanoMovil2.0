@@ -85,7 +85,7 @@ const handleFormSubmit = (data: FieldValues) => {
             }
             <option value='' key={`selectShipping_null`} disabled>Seleciona Envío</option>
           </SelectDropdown>
-        <FormButtonDiv>
+        <FormButtonDiv className='formBtnBlock'>
           <Link passHref href='/cesta'>
             <Button>Volver al carrito</Button>
           </Link>

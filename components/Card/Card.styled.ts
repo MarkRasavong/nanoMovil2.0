@@ -131,3 +131,20 @@ export const QuantityDiv = styled.span`
 	font-size: 1.2em;
 	margin-top: 0.5em;
 `
+export const CartItemsGrid = styled.div`
+	div {
+		margin-bottom: 1em;
+	}
+
+	@media (min-width: 768px) and (max-width: 1024px) {
+		display: grid;
+		grid-template-columns: repeat(2, 50%);
+		grid-column-gap: 1em;
+	}
+
+	@media (min-width: 1025px) {
+		display: grid;
+		grid-template-columns: repeat(3, 35%);
+		grid-column-gap: 1em;
+	}
+`

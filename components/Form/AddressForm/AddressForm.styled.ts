@@ -14,6 +14,10 @@ export const FormContainer = styled.form`
 		grid-column-gap: 1em;
 		grid-row-gap: 1em;
 		padding: 1em 1em;
+
+		.formBtnBlock {
+			grid-column: span 2;
+		}
 	}
 `
 export const FormButtonDiv = styled.div`

@@ -28,6 +28,7 @@ overflow: hidden;
 .productSpan{
   display: flex;
   flex-direction: column;
+  margin-bottom: 0.5em;
 }
 `;
 

@@ -7,7 +7,6 @@ export const FooterDiv = styled.footer`
 	justify-content: center;
 	height: 5em;
 	width: 100%;
-	background-color: red;
 	margin-top: 2em;
 
 	h4 {
