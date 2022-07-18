@@ -9,6 +9,7 @@ import { NanoTheme } from '../../styles/theme';
 import { Badge } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchCart } from '../../features/cart';
+import { SiGithub, SiLinkedin } from 'react-icons/si';
 
 const pages = [
   { name: 'Productos', link: '/productos'}
@@ -23,6 +24,11 @@ const Navbar = () => {
   const [backgroundTransparacy, setBackgroundTransparacy] = useState(0);
   const [padding, setPadding] = useState(30);
   const [boxShadow, setBoxShadow] = useState(0);
+
+  const markSociales = [
+    {name: 'linkedIn', link: 'https://www.linkedin.com/in/markrasavong/', icn: <SiLinkedin size={'1.6em'} color={theme.colors.nanoWhite}/>}, 
+    {name: 'github', link: 'https://github.com/MarkRasavong', icn: <SiGithub size={'1.6em'} color={theme.colors.nanoWhite} />}
+  ]
 
   const handleScroll = () => {
     setClientWindowHeight(window.scrollY);
@@ -67,7 +73,7 @@ const Navbar = () => {
     >
       <NavbarLogo>
       <Link href={"/"}>
-        <Image src={"/navBarLogo.png"} alt="logo" width={182} height={94} />
+        <Image src={"/navbarLogo.png"} alt="logo" width={182} height={94} />
       </Link>
       </NavbarLogo>
 
@@ -102,6 +108,16 @@ const Navbar = () => {
             </Badge>
           </button>
         </Link>
+
+        {
+        markSociales.map(({name, link, icn}) => (
+          <a href={link} key={`navSocialIcn${name}`} rel="noopener noreferrer" target="_blank">
+            <button>
+              {icn}
+            </button>
+          </a>
+        ))
+        }
       </IconLinksContainer>
       
       <MobileMenuButton onClick={handleMobileClick}>

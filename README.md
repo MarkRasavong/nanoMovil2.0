@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Nano Móvil 2.0
 
-## Getting Started
+A mock Valencian mobile shope with ecommerence functionality using stripe and commerce.js.
 
-First, run the development server:
+**Link to project this project (current):** https://nano-movil2-0.vercel.app/
+**Link to project original project:** https://nano-movil.netlify.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+**To Test Transactions Card follow the payment details below**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Card Number: 4242 4242 4242 4242
+- Expiry Date: 04/24
+- CVC: 242
+- Postal Code: 42242
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## BEFORE
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+![nano móvil before](./nano1_animation.gif)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## AFTER
 
-## Learn More
+![nano móvil before](./nano1_animation.gif)
 
-To learn more about Next.js, take a look at the following resources:
+## How It's Made:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Tech used:** HTML, CSS(Styled Components), JavaScript, React.js/Next.js, Redux Toolkit, React Form Hook
+**APIs used:** Stripe, commerce.js
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- All products were created from commerce.js and then used it's API to render the data we wanted. If any new products or a change of product detail has occured it can be easily managed from commerce API. The utilization of react redux keeps tracks of any cart movements and changes in our products.
 
-## Deploy on Vercel
+## Optimizations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Card completely rerenders every time quantity has changed in the cart section. Can be improved creating a useState hook of the current quantity values and product prices. Registration form can also be hard coded and not rely on fetching the data from the API since there is not much data to be displayed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Lessons Learned:
+
+✅ Hand customized TextInputs and Cards. <br>
+✅ TS Error Handling with potential outputs of 'null'. <br>
+✅ Use of CSS pointer-events <br>
+✅ Utilizing AppDispatch && AppSelector if a slice uses a thunk. <br>
+
+## Where to find more:
+
+**Personal Website:** https://markrasavong.com/ <br>
+**nanoMovil2.0 Repository:** https://github.com/MarkRasavong/nanoMovil2.0 <br>
+**My Github Repositories:** https://github.com/MarkRasavong?tab=repositories <br>

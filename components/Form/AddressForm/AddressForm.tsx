@@ -45,7 +45,7 @@ useEffect(() => {
 
 useEffect(() => {
   if(shipData.subdivision) fetchShippingOptions(tokenId, shipData.subdivision)
-}, [tokenId, shipData.subdivision])
+}, [tokenId, shipData.subdivision]);
 
 const handleFormSubmit = (data: FieldValues) => {
   dispatch(formSubmission({...data, ...shipData}));

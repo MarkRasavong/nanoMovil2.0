@@ -105,7 +105,6 @@ export const IconLinksContainer = styled.div`
 		padding: 0.8em;
 		cursor: pointer;
 		transition-duration: 0.13s;
-		margin-right: 1em;
 	}
 
 	//mobile
