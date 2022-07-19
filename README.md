@@ -5,7 +5,7 @@ A mock Valencian mobile shope with ecommerence functionality using stripe and co
 **Link to project this project (current):** https://nano-movil2-0.vercel.app/ <br>
 **Link to project original project:** https://nano-movil.netlify.app/
 
-**To Test Transactions Card follow the payment details below**
+**To Test Transactions follow the payment details below**
 
 - Card Number: 4242 4242 4242 4242
 - Expiry Date: 04/24
@@ -18,7 +18,7 @@ A mock Valencian mobile shope with ecommerence functionality using stripe and co
 
 ## AFTER
 
-![nano móvil before](./nano1_animation.gif)
+![nano móvil before](./nano2-0.gif)
 
 ## How It's Made:
 
@@ -29,7 +29,7 @@ A mock Valencian mobile shope with ecommerence functionality using stripe and co
 
 ## Optimizations
 
-Card completely rerenders every time quantity has changed in the cart section. Can be improved creating a useState hook of the current quantity values and product prices. Registration form can also be hard coded and not rely on fetching the data from the API since there is not much data to be displayed.
+Card completely rerenders every time quantity has changed in the cart section. Can be improved creating a useState hook of the current quantity values and product prices. Registration form can also be hard coded and not rely on fetching the data from the API since there is not much data to be displayed. Can also add a new feature by adding indivdual dynamic page for each product.
 
 ## Lessons Learned:
 
